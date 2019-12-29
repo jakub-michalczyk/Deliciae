@@ -8,7 +8,7 @@ let filteredBrand = [];
 let filteredSex = null;
 
 let searchInput;
-
+let product = null;
 
 class Item{
     constructor(id, brand, name, price, src, sex, type, sale, doubles, color, sizes){
@@ -24,6 +24,106 @@ class Item{
         this.color = color;
         this.sizes = sizes;
     }
+}
+
+if(location.href.includes('index')){
+    mainInit();
+}
+else if(location.href.includes('news')){
+    newsInit();
+}
+else if(location.href.includes('news')){
+    newsInit();
+}
+else if(location.href.includes('product')){
+    productInit()
+}
+else if(location.href.includes('about')){
+    aboutInit()
+}
+else if(location.href.includes('designer')){
+    designerInit()
+}
+else if(location.href.includes('sale')){
+    saleInit()
+}
+else if(location.href.includes('woman') || location.href.includes('kid') || location.href.includes('man') ){
+    clothInit()
+}
+
+function clothInit(){
+    getSex();
+    fixStyles();
+    gettingCloths();
+    mainInit();
+
+    document.querySelector('#designer div').addEventListener('click', showMore);
+    document.querySelector('#menuPrizeTitle').addEventListener('click', showMore);
+    document.querySelectorAll('.specifyItem').forEach(item => item.addEventListener('click', specifyItem));
+    document.querySelector('#containerContent').style.flexDirection = 'column';
+}
+
+function saleInit(){
+    fixStyles();
+
+    document.querySelector('#search').style.display = 'flex';
+    document.querySelector('#containerContent').style.flexDirection = 'column';
+    
+    document.querySelector('#designer div').addEventListener('click', showMore);
+    document.querySelector('#menuPrizeTitle').addEventListener('click', showMore);
+    document.querySelectorAll('.specifyItem').forEach(item => item.addEventListener('click', specifyItem));
+    
+    quickShowBox();
+    productFullpage();
+    mainInit();
+}
+
+function designerInit(){
+    if(document.querySelector('#designerBox') !== null){
+        fixStyles();
+        getDesigner();
+    }
+
+    mainInit();
+
+    document.querySelectorAll('.sexBox').forEach(box => box.addEventListener('click', designerChooseSex));
+    document.querySelectorAll('.sexBox').forEach( box => box.addEventListener('mouseover', chooseSexAnimation));
+    document.querySelectorAll('.sexBox').forEach( box => box.addEventListener('mouseout', removeChooseSexAnimation));
+    document.querySelectorAll('.designer').forEach(designer => designer.addEventListener('click', viewDesignerPage));
+}
+
+function aboutInit(){
+    mainInit();
+    fixStyles();
+    
+    document.querySelector('#containerContent').style.flexDirection = 'column';
+    document.querySelector('#containerContent').style.marginTop = '5%';
+}
+
+function productInit(){
+    product = JSON.parse(sessionStorage.getItem('product'));
+
+    document.querySelector('#productBuy').addEventListener('click', addToCart);
+    document.querySelector('#productFav').addEventListener('click', addToFav);
+
+    document.querySelectorAll('.arrowIcon').forEach( arrow => arrow.addEventListener('click', imageToggle));
+
+    fixStyles();
+    mainInit();
+
+    return unpackStorage();
+}
+
+function newsInit(){
+    fixStyles();
+    mainInit();
+
+    document.querySelectorAll('.sexBox img').forEach( box => box.addEventListener('mouseover', chooseSexAnimation));
+    document.querySelectorAll('.sexBox img').forEach( box => box.addEventListener('mouseout', removeChooseSexAnimation));
+    document.querySelectorAll('.sexBox').forEach( box => box.addEventListener('click', chooseSex));
+
+    document.querySelector('#menuToggle').addEventListener('click', menuToggle);
+    document.querySelector('nav').style.zIndex = '9999';
 }
 
 function mainInit(){
@@ -2045,4 +2145,205 @@ function getClothNames() {
 
     document.querySelector('#search').style.display = 'flex';
 }
+
+// NEWS
+
+function chooseSex(e){
+    determineSex(e.target);
+    createListingBox();
+    gettingCloths();
+    filterNews();
+    mainTools();
+    
+    document.querySelector('#designer div').addEventListener('click', showMore);
+    document.querySelector('#menuPrizeTitle').addEventListener('click', showMore);
+    document.querySelectorAll('.specifyItem').forEach(item => item.addEventListener('click', specifyItem));
+}
+
+function createListingBox(){
+    document.querySelector('#container').innerHTML =
+        `<div id="containerMenuBox">
+            <ul id="containerMenu">
+                <li class="containerElem" id="category">
+                    <span>Kategoria</span>
+                    <ul class="subMenu" id="forWho">
+                        <li class="specifyItem"><div>Ubrania<i style="font-size:24px;color:#ff1a1a;" class="material-icons">arrow_drop_down</i></div></li>
+                        <li class="specifyItem"><div>Buty<i style="font-size:24px;color:#ff1a1a;" class="material-icons">arrow_drop_down</i></div></li>
+                        <li class="specifyItem"><div>Akcesoria<i style="font-size:24px;color:#ff1a1a;" class="material-icons">arrow_drop_down</i></div></li>
+                    </ul>
+                </li>
+                <li class="containerElem" id="designer">
+                    <div id="designerWrap">Projektant <i style="font-size:30px;" class="containerMenuArrow material-icons">arrow_drop_down</i></div>
+                </li>
+                <li class="containerElem" id="menuPrize"><div id="menuPrizeTitle">Cena <i style="font-size:30px;" class="containerMenuArrow material-icons">arrow_drop_down</i></div></li>
+            </ul>
+        </div>
+        <div id="containerContent">
+            <div id="filterBox"></div>
+            <h1>Nowości</h1>
+            <div id="listings"></div>
+        </div>`
+}
+
+function filterNews(){
+    document.querySelectorAll('.listing').forEach(listing => {
+        listing.dataset.news !== 'true' ? listing.remove() : null;
+    });
+}
+
+// Product
+
+function unpackStorage(){
+    document.title = `Delicae - ${product.brand} | ${product.name}`;
+
+    document.querySelector('#productInfoBox').dataset.id = product.id;
+    document.querySelector('#productInfoBox').dataset.sex = product.sex;
+
+    addColorAndSizes(product);
+
+    document.querySelector('#productImageBox img').src = `../img/cloths/${product.src}`;
+    document.querySelector('#productImageBox img').style.maxWidth = '90%';
+    document.querySelector('#productImageBox img').style.maxHeight = '90%';
+    
+    document.querySelector('#productBrand').textContent = product.brand;
+    document.querySelector('#productName').textContent = product.name;
+
+    viewProductSalePrice(product);
+}
+
+function viewProductSalePrice(product){
+    if(product.sale !== 'null'){
+        document.querySelector('.productPrice').innerHTML = `<div class="previousPrice">${product.price}$</div> ${product.sale}$`;
+    }
+    else{
+        document.querySelector('.productPrice').textContent = `${product.price}$`;
+    }
+}
+
+function imageToggle(e){
+   let img = document.querySelector('#productImageBox img').src;
+
+   if(e.target.textContent === 'keyboard_arrow_left'){
+        //LEFT
+        if(img.includes('2')){
+            let firstPart = img.split('.')[0];
+            let secondPart = img.split('.')[1];
+
+            firstPart = firstPart.substr(0, firstPart.length - 2);
+
+            document.querySelector('#productImageBox img').src = firstPart += `.${secondPart}`;
+        }
+   }
+    else {
+        //RIGHT
+        if(!img.includes('2')){
+            let firstPart = img.split('.')[0];
+            let secondPart = img.split('.')[1];
+
+            firstPart += '_2';
+
+            document.querySelector('#productImageBox img').src = firstPart += `.${secondPart}`;
+        }
+    }
+}
+
+// DESIGNER
+
+function viewDesignerPage(e){
+    let target = null;
+    let designer = {};
+
+    e.target.className !== 'designer' ? target = e.target.parentNode : target = e.target;
+
+    designer.src = target.children[0].src.split('/')[target.children[0].src.split('/').length - 1];
+    designer.name = target.children[1].textContent;
+
+    sessionStorage.setItem('designer', JSON.stringify(designer));
+
+    window.location.href = '../html/designer.html';
+
+}
+
+function getDesigner(){
+    if(document.querySelector('#designerBox') !== null && sessionStorage.getItem('designer') !== null){
+        let designer = JSON.parse(sessionStorage.getItem('designer'));
+        const DESIGNER_BOX = document.querySelector('#designerBox');
+        const img = new Image();
+    
+        DESIGNER_BOX.children[0].appendChild(img);
+        DESIGNER_BOX.children[0].children[0].src = `../img/designersLogo/${designer.src}`;
+        DESIGNER_BOX.children[0].children[0].width = "150px";
+
+        DESIGNER_BOX.dataset.designer = designer.name;
+
+        document.querySelector('#container').style.flexDirection = 'column';
+        document.querySelector('#container').style.justifyContent = 'center';
+        document.querySelector('#container').style.alignItems = 'center';
+    }
+}
+
+function designerChooseSex(e){
+    determineSex(e.target);
+
+    document.querySelector('#container').innerHTML =
+        `<div id="containerMenuBox">
+        <ul id="containerMenu">
+            <li class="containerElem" id="category">
+                <span>Kategoria</span>
+                <ul class="subMenu" id="forWho">
+                    <li class="specifyItem"><div>Ubrania<i style="font-size:24px;color:#ff1a1a;" class="material-icons">arrow_drop_down</i></div></li>
+                    <li class="specifyItem"><div>Buty<i style="font-size:24px;color:#ff1a1a;" class="material-icons">arrow_drop_down</i></div></li>
+                    <li class="specifyItem"><div>Akcesoria<i style="font-size:24px;color:#ff1a1a;" class="material-icons">arrow_drop_down</i></div></li>
+                </ul>
+            </li>
+            <li class="containerElem" id="designer">
+                <div id="designerWrap">Projektant <i style="font-size:30px;" class="containerMenuArrow material-icons">arrow_drop_down</i></div>
+            </li>
+            <li class="containerElem" id="menuPrize"><div id="menuPrizeTitle">Cena <i style="font-size:30px;" class="containerMenuArrow material-icons">arrow_drop_down</i></div></li>
+        </ul>
+    </div>
+        <div id="containerContent">
+            <div id="filterBox"></div>
+            <div id="designerBox" data-designer="${JSON.parse(sessionStorage.getItem('designer')).name}">
+                <div id="imgContainer"></div>
+            </div>
+            <div id="listings"></div>
+        </div>`
+
+    document.querySelector('#designer div').addEventListener('click', showMore);
+    document.querySelector('#menuPrizeTitle').addEventListener('click', showMore);
+    document.querySelectorAll('.specifyItem').forEach(item => item.addEventListener('click', specifyItem));
+    document.querySelector('#container').style.flexDirection = 'row';
+    document.querySelector('#container').style.alignItems = 'flex-start';
+
+    filteredBrand.push(JSON.parse(sessionStorage.getItem('designer')).name);
+    
+    gettingCloths();
+    mainTools();
+    createBrandLogo();
+    filterItems(undefined, true)
+    productFullpage();
+}
+
+function createBrandLogo(){
+    document.querySelector('#designerBox').innerHTML = `<img width="150px" height="100px" src="../img/designersLogo/${JSON.parse(sessionStorage.getItem('designer')).name.toLowerCase().trim()}.png">`
+}
+
+// CLOTH
+
+function getSex() {
+    if (document.querySelector('#containerContent h1') === null) {
+        filteredSex = null;
+    }
+    else if (document.querySelector('#containerContent h1').textContent.includes('Kobieta')) {
+        filteredSex = 'woman';
+    }
+    else if (document.querySelector('#containerContent h1').textContent.includes('Mężczyzna')) {
+        filteredSex = 'man';
+    }
+    else if (document.querySelector('#containerContent h1').textContent.includes('Dziecko')) {
+        filteredSex = 'kid';
+    }
+}
+
 

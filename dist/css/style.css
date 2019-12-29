@@ -333,7 +333,7 @@ nav #menu li {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url("../img/bg.jpg");
+  background-image: url("../../dist/img/bg.jpg");
   background-color: #fff;
   background-size: cover;
   background-repeat: no-repeat;

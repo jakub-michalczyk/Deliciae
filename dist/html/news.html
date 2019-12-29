@@ -55,26 +55,24 @@
         </li>
     </ul>
     <div id="container">
-        <div id="containerMenuBox">
-            <ul id="containerMenu">
-                <li class="containerElem" id="category">
-                    <span>Kategoria</span>
-                    <ul class="subMenu" id="forWho">
-                        <li class="specifyItem"><div>Ubrania<i style="font-size:24px;color:#ff1a1a;" class="material-icons">arrow_drop_down</i></div></li>
-                        <li class="specifyItem"><div>Buty<i style="font-size:24px;color:#ff1a1a;" class="material-icons">arrow_drop_down</i></div></li>
-                        <li class="specifyItem"><div>Akcesoria<i style="font-size:24px;color:#ff1a1a;" class="material-icons">arrow_drop_down</i></div></li>
-                    </ul>
-                </li>
-                <li class="containerElem" id="designer">
-                    <div id="designerWrap">Projektant <i style="font-size:30px;" class="containerMenuArrow material-icons">arrow_drop_down</i></div>
-                </li>
-                <li class="containerElem" id="menuPrize"><div id="menuPrizeTitle">Cena <i style="font-size:30px;" class="containerMenuArrow material-icons">arrow_drop_down</i></div></li>
-            </ul>
+        <div id="designerBox">
+            <div id="imgContainer"></div>
         </div>
         <div id="containerContent">
-            <div id="filterBox"></div>
-            <h1>Dziecko</h1>
-            <div id="listings"></div>
+            <div id="sex">
+                <div id="man" class="sexBox">
+                    <img alt="Man" src='../img/man.jpeg'>
+                    <div class="sexName">Mężczyzna</div>
+                </div>
+                <div id="woman" class="sexBox">
+                    <img alt="Woman" src='../img/woman.jpeg'>
+                    <div class="sexName">Kobieta</div>
+                </div>
+                <div alt="Kid" id="kid" class="sexBox">
+                    <img src='../img/kid.jpeg'>
+                    <div class="sexName">Dziecko</div>
+                </div>
+            </div>
         </div>
     </div>
     <footer>
@@ -85,6 +83,5 @@
         </ul>
     </footer>
     <script src='../js/main.js'></script>
-    <script src='../js/cloth.js'></script>
 </body>
 </html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="shortcut icon" href="../img/shortcut.png">
 </head>
+
 <body>
     <div id="menuToggle" data-type="hide">
         <span id="line1" class="line"></span>
@@ -38,7 +40,9 @@
             <a href='../html/designers.html'>
                 <li class="menuElements">Projektanci</li>
             </a>
-            <li id="sale">SALE</li>
+            <a href="../html/sale.html">
+                <li id="sale">SALE</li>
+            </a>
         </ul>
     </nav>
     <ul id="user">
@@ -53,27 +57,13 @@
         </li>
     </ul>
     <div id="container">
-        <div id="containerMenuBox">
-            <ul id="containerMenu">
-                <li class="containerElem" id="category">
-                    <span>Kategoria</span>
-                    <ul class="subMenu" id="forWho">
-                        <li class="specifyItem"><div>Ubrania<i style="font-size:24px;color:#ff1a1a;" class="material-icons">arrow_drop_down</i></div></li>
-                        <li class="specifyItem"><div>Buty<i style="font-size:24px;color:#ff1a1a;" class="material-icons">arrow_drop_down</i></div></li>
-                        <li class="specifyItem"><div>Akcesoria<i style="font-size:24px;color:#ff1a1a;" class="material-icons">arrow_drop_down</i></div></li>
-                    </ul>
-                </li>
-                <li class="containerElem" id="designer">
-                    <div id="designerWrap">Projektant <i style="font-size:30px;" class="containerMenuArrow material-icons">arrow_drop_down</i></div>
-                </li>
-                <li class="containerElem" id="menuPrize"><div id="menuPrizeTitle">Cena <i style="font-size:30px;" class="containerMenuArrow material-icons">arrow_drop_down</i></div></li>
-            </ul>
-        </div>
-        <div id="containerContent">
-            <div id="filterBox"></div>
-            <h1>Kobieta</h1>
-            <div id="listings"></div>
-        </div>
+        <h1 class="mainHeader">Nowe przedmioty!</h1>
+        <p id="arrivals">
+            Gucci, Fendi, MCM i więcej!
+            <a href="../html/news.html">
+                Zobacz >>
+            </a>
+        </p>
     </div>
     <footer>
         <ul>
@@ -83,6 +73,6 @@
         </ul>
     </footer>
     <script src='../js/main.js'></script>
-    <script src='../js/cloth.js'></script>
 </body>
+
 </html>

@@ -18,11 +18,12 @@
 }
 
 #designerContainer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
   margin-top: 5%;
   margin-bottom: 10%;
-  display: flex;
   flex-direction: column;
-  align-items: center;
   height: auto;
 }
 #designerContainer h1 {
@@ -34,18 +35,20 @@
   text-transform: uppercase;
 }
 #designerContainer ul {
-  padding: 0;
-  margin: 0;
   display: flex;
   justify-content: center;
+  align-items: flex-start;
+  padding: 0;
+  margin: 0;
   flex-wrap: wrap;
   list-style: none;
 }
-#designerContainer ul .designer {
-  margin: 20px;
+
+.designer {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 20px;
   flex-direction: column;
   padding: 10px;
   border: 1px solid #000;
@@ -54,20 +57,20 @@
   cursor: pointer;
   transition: all 0.2s;
 }
-#designerContainer ul .designer:hover {
+.designer:hover {
   background: #efefef;
 }
-#designerContainer ul .designer img {
+.designer img {
   object-fit: scale-down;
   width: 100px;
   height: 100px;
 }
-#designerContainer ul .designer div {
-  background: #1d1d1d;
-  color: #fff;
+.designer div {
   display: flex;
   justify-content: center;
   align-items: center;
+  background: #1d1d1d;
+  color: #fff;
   padding: 5px 10px;
   margin-top: 22px;
   width: 152px;
@@ -79,13 +82,12 @@
 }
 
 #designerBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-top: 30px;
   margin-bottom: 20px;
   text-align: center;
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  align-items: center;
   padding: 30px;
   border: 2px solid #000;
   width: 50%;
