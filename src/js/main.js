@@ -282,7 +282,7 @@ function productFullpage(){
     document.querySelectorAll('.listing img').forEach( item => item.addEventListener('click', e => {
         items.forEach( item => {
             if(e.target.parentNode.dataset.id === item.id){
-                //Save product object in storage and href to product page
+                //Save product object in storage and move to product page
                 sessionStorage.setItem('product', JSON.stringify(item));
                 window.location.href = '../html/product.html';
             }
