@@ -92,7 +92,7 @@
   }
 
   #containerContent h1 {
-    margin: 25% 0 !important;
+    margin: 5% 0 !important;
     font-size: 32px !important;
     padding: 10px 0 !important;
   }
@@ -176,7 +176,6 @@ nav #menu {
   justify-content: flex-start;
   align-items: center;
   list-style-type: none;
-  flex-wrap: wrap;
   margin: 0;
   padding: 0;
 }
@@ -1089,6 +1088,7 @@ footer ul li:hover {
   padding: 30px;
   margin-bottom: 10%;
   transition: all 0.2s;
+  overflow-y: scroll;
 }
 #favouriteBox #noFavs {
   color: #666;
